@@ -1,4 +1,5 @@
-import { makeExecutableSchema } from '@graphql-tools/schema';
+const makeExecutableSchema =
+  require('@graphql-tools/schema').makeExecutableSchema;
 
 const typeDefs = `
 type User {
@@ -24,12 +25,12 @@ input UserCreateInput {
 const resolvers = {
   Query: {
     allUsers: async (obj, args, context) => {
-      return await context.prisma.user.findMany();
+      return await context.db.user.findMany();
     },
   },
   Mutation: {
     addUser: (_, args, context) => {
-      return context.prisma.user.create({
+      return context.db.user.create({
         data: {
           name: args.data.name,
           email: args.data.email,
@@ -39,7 +40,7 @@ const resolvers = {
   },
 };
 
-export const schema = makeExecutableSchema({
+module.exports.schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });

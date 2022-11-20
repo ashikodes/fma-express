@@ -1,8 +1,8 @@
-import app from '../server/app';
-import supertest from 'supertest-graphql';
-import gql from 'graphql-tag';
+const { app } = require('../server/express');
+const supertest = require('supertest-graphql');
+const gql = require('graphql-tag');
 
-import { PrismaClient } from '@prisma/client';
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 

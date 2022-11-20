@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+const PrismaClient = require('@prisma/client').PrismaClient;
 
 const prisma = new PrismaClient();
 
-export const context = {
-  prisma: prisma,
+module.exports.context = {
+  db: prisma,
 };
