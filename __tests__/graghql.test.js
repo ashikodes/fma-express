@@ -1,4 +1,4 @@
-const { app } = require('../server/express');
+const { app, apolloServerGraphQL } = require('../server/express');
 const supertest = require('supertest-graphql');
 const gql = require('graphql-tag');
 
@@ -7,6 +7,8 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const request = supertest.default;
+
+apolloServerGraphQL();
 
 beforeEach(async () => {
   await prisma.user.deleteMany({});

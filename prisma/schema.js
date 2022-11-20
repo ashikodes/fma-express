@@ -1,25 +1,25 @@
-const makeExecutableSchema =
-  require('@graphql-tools/schema').makeExecutableSchema;
+const ApolloServer = require('@apollo/server').ApolloServer;
+const gql = require('graphql-tag');
 
-const typeDefs = `
-type User {
-  id: String!
-  email: String!
-  name: String
-}
+const typeDefs = gql`
+  type User {
+    id: String!
+    email: String!
+    name: String
+  }
 
-type Query {
-  allUsers: [User!]!
-}
+  type Query {
+    allUsers: [User!]!
+  }
 
-type Mutation {
-  addUser(data: UserCreateInput): User!
-}
+  type Mutation {
+    addUser(data: UserCreateInput): User!
+  }
 
-input UserCreateInput {
-  email: String!
-  name: String
-}
+  input UserCreateInput {
+    email: String!
+    name: String
+  }
 `;
 
 const resolvers = {
@@ -40,7 +40,7 @@ const resolvers = {
   },
 };
 
-module.exports.schema = makeExecutableSchema({
+module.exports.server = new ApolloServer({
   typeDefs,
   resolvers,
 });

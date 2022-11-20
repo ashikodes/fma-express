@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors');
-const graphqlHTTP = require('express-graphql').graphqlHTTP;
-const schema = require('../prisma/schema').schema;
-const context = require('../prisma/context').context;
+const { expressMiddleware } = require('@apollo/server/express4');
+const { server } = require('../prisma/schema');
+const { context } = require('../prisma/context');
 
 const app = express();
 const router = express.Router();
@@ -15,16 +15,15 @@ router.get('/', (req, res) => {
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema,
-    context,
-    graphiql: true,
-  })
-);
+
+const apolloServerGraphQL = () => {
+  server.start().then(() => {
+    app.use('/graphql', expressMiddleware(server, { context: () => context }));
+  });
+};
 
 module.exports = {
   app,
   router,
+  apolloServerGraphQL,
 };

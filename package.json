@@ -5,31 +5,32 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "netlify-lambda serve serverless",
-    "build": "netlify-lambda build serverless",
+    "start": "netlify-lambda serve serverless --config webpack.config.js",
+    "build": "netlify-lambda build serverless --config webpack.config.js",
     "test": "dotenv -e .env.test jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@graphql-tools/schema": "^9.0.10",
+    "@apollo/server": "^4.1.1",
     "@prisma/client": "^4.6.1",
     "cors": "^2.8.5",
     "dotenv-cli": "^6.0.0",
     "express": "^4.18.2",
-    "express-graphql": "^0.12.0",
-    "graphql": "^14.7.0",
+    "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "jest": "^29.3.1",
     "netlify-cli": "^12.2.4",
-    "netlify-lambda": "^2.0.15",
+    "netlify-lambda": "2.0.1",
     "prisma": "^4.6.1",
     "serverless-http": "^3.1.0",
     "supertest": "^6.3.1",
-    "supertest-graphql": "^1.1.4"
+    "supertest-graphql": "^1.1.4",
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "type": "commonjs"
 }
