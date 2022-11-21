@@ -7,7 +7,7 @@
     "dev": "nodemon server.js",
     "start": "netlify-lambda serve serverless --config webpack.config.js",
     "build": "netlify-lambda build serverless --config webpack.config.js",
-    "test": "jest"
+    "test": "dotenv -e .env.test jest"
   },
   "keywords": [],
   "author": "",
