@@ -20,7 +20,18 @@ jobs:
       with:
         envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
         file_name: .env
-        fail_on_empty: false
+        fail_on_empty: true
+        
+    - name: Verify envfile
+      run: |
+          TEST=$(cat <<-END
+            DATABASE_URL=mongodb+srv://prisma:prismafmaexpress@cluster0.cxbnahr.mongodb.net/test
+          END
+          )
+          if [ "$TEST" != "$(cat .env)" ]
+          then
+              echo "ERR"
+          fi
   build:
 
     runs-on: ubuntu-latest
